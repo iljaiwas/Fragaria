@@ -255,11 +255,13 @@
     for (NSNumber *line in [self linesWithErrors])
     {
         NSImage *image = [[self errorForLine:[line integerValue]] warningImage];
-        if (size.height > 0.0 && size.width > 0)
-        {
-            [image setSize:size];
+        if (image) {
+            if (size.height > 0.0 && size.width > 0)
+            {
+                [image setSize:size];
+            }
+            [result setObject:image forKey:line];
         }
-        [result setObject:image forKey:line];
     }
 
     return result;
