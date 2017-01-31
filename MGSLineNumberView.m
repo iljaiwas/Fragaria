@@ -104,6 +104,7 @@ typedef enum {
 
 - (void)dealloc
 {
+	self.clientView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
