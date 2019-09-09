@@ -49,7 +49,11 @@ float const kMGSErrorCategoryDefault  = 450.0;
     
     if (!(res = [imageCache objectForKey:imageNum])) {
         imageName = [imageNames objectAtIndex:imageIdx];
+#ifdef COCOAPODS
+        res = [resourcesBundle imageForResource:imageName];
+#else
         res = [[NSBundle bundleForClass:[self class]] imageForResource:imageName];
+#endif
         [imageCache setObject:res forKey:imageNum];
     }
 

@@ -137,10 +137,18 @@ NSString * const KMGSColourSchemeExt = @"plist";
 
     if ( self.currentSchemeIsCustom || self.currentScheme.loadedFromBundle)
     {
+#ifdef COCOAPODS
+        return NSLocalizedStringFromTableInBundle(@"Save Scheme…", nil, resourcesBundle,  @"The text for the save/delete scheme button when it should read Save Scheme…");
+#else
         return NSLocalizedStringFromTableInBundle(@"Save Scheme…", nil, [NSBundle bundleForClass:[self class]],  @"The text for the save/delete scheme button when it should read Save Scheme…");
+#endif
     }
 
+#ifdef COCOAPODS
+    return NSLocalizedStringFromTableInBundle(@"Delete Scheme…", nil, resourcesBundle,  @"The text for the save/delete scheme button when it should read Delete Scheme…");
+#else
     return NSLocalizedStringFromTableInBundle(@"Delete Scheme…", nil, [NSBundle bundleForClass:[self class]],  @"The text for the save/delete scheme button when it should read Delete Scheme…");
+#endif
 }
 
 
@@ -167,7 +175,12 @@ NSString * const KMGSColourSchemeExt = @"plist";
                                                         error:nil];
 
         self.saveController = [[MGSColourSchemeSaveController alloc] init];
+
+#ifdef COCOAPODS
+        self.saveController.schemeName = NSLocalizedStringFromTableInBundle(@"New Scheme", nil, resourcesBundle,  @"Default name for new schemes.");
+#else
         self.saveController.schemeName = NSLocalizedStringFromTableInBundle(@"New Scheme", nil, [NSBundle bundleForClass:[self class]],  @"Default name for new schemes.");
+#endif
 
         [self.saveController showSchemeNameGetter:self.parentView.window completion:^void (BOOL confirmed) {
             if (confirmed)

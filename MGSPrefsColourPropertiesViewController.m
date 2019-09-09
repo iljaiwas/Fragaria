@@ -30,7 +30,12 @@
     NSBundle *bundle;
     
     self = [super init];
+#ifdef COCOAPODS
+    bundle = resourcesBundle;
+#else
     bundle = [NSBundle bundleForClass:[MGSPrefsColourPropertiesViewController class]];
+#endif
+    
     [bundle loadNibNamed:@"MGSPrefsColourProperties" owner:self topLevelObjects:nil];
     
     return self;

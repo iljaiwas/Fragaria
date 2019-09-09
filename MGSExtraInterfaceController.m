@@ -32,7 +32,13 @@
 - (NSMenu*)contextMenu
 {
     if (!_contextMenu)
+    {
+#ifdef COCOAPODS
+        [resourcesBundle loadNibNamed:@"MGSContextMenu" owner:self topLevelObjects:NULL];
+#else
         [NSBundle loadNibNamed:@"MGSContextMenu" owner:self];
+#endif
+    }
     return _contextMenu;
 }
 
@@ -49,7 +55,11 @@
     NSWindow *wnd;
     
 	if (entabWindow == nil) {
-		[NSBundle loadNibNamed:@"SMLEntab.nib" owner:self];
+#ifdef COCOAPODS
+        [resourcesBundle loadNibNamed:@"SMLEntab" owner:self topLevelObjects:NULL];
+#else
+        [NSBundle loadNibNamed:@"SMLEntab.nib" owner:self];
+#endif
         spacesTextFieldEntabWindow.integerValue = target.tabWidth;
 	}
 	
@@ -67,7 +77,11 @@
     NSWindow *wnd;
     
 	if (detabWindow == nil) {
-		[NSBundle loadNibNamed:@"SMLDetab.nib" owner:self];
+#ifdef COCOAPODS
+        [resourcesBundle loadNibNamed:@"SMLDetab" owner:self topLevelObjects:NULL];
+#else
+        [NSBundle loadNibNamed:@"SMLDetab.nib" owner:self];
+#endif
         spacesTextFieldDetabWindow.integerValue = target.tabWidth;
 	}
 	
@@ -133,7 +147,11 @@
     NSWindow *wnd = [_completionTarget window];
     
 	if (goToLineWindow == nil) {
-		[NSBundle loadNibNamed:@"SMLGoToLine.nib" owner:self];
+#ifdef COCOAPODS
+        [resourcesBundle loadNibNamed:@"SMLGoToLine" owner:self topLevelObjects:NULL];
+#else
+        [NSBundle loadNibNamed:@"SMLGoToLine.nib" owner:self];
+#endif
 	}
 	
 	[NSApp beginSheet:goToLineWindow modalForWindow:wnd modalDelegate:self didEndSelector:nil contextInfo:nil];

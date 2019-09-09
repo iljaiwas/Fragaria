@@ -113,7 +113,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (!self) return nil;
     
+#ifdef COCOAPODS
+    bundle = resourcesBundle;
+#else
     bundle = [NSBundle bundleForClass:[MGSPrefsViewController class]];
+#endif
+
     [bundle loadNibNamed:@"MGSPrefsCommonViews" owner:self topLevelObjects:nil];
     
     _managedPropertiesProxy = [[MGSManagedPropertiesProxy alloc] initWithViewController:self];

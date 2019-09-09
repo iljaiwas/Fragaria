@@ -26,7 +26,12 @@
 {
 	if (value && [value boolValue])
 	{
-		return NSLocalizedStringFromTableInBundle(@"Items in bold affect all of your views.", nil, [NSBundle bundleForClass:[self class]], @"Hint explaining why certain items are bold.");
+#ifdef COCOAPODS
+        return NSLocalizedStringFromTableInBundle(@"Items in bold affect all of your views.", nil, resourcesBundle, @"Hint explaining why certain items are bold.");
+#else
+        return NSLocalizedStringFromTableInBundle(@"Items in bold affect all of your views.", nil, [NSBundle bundleForClass:[self class]], @"Hint explaining why certain items are bold.");
+#endif
+
 	}
 	
 	return nil;

@@ -226,7 +226,11 @@
 
 	self.loadedFromBundle = NO;
 	
+#ifdef COCOAPODS
+    self.displayName = NSLocalizedStringFromTableInBundle(@"Custom Settings", nil, resourcesBundle,  @"Name for Custom Settings scheme.");
+#else
     self.displayName = NSLocalizedStringFromTableInBundle(@"Custom Settings", nil, [NSBundle bundleForClass:[self class]],  @"Name for Custom Settings scheme.");
+#endif
 
     self.textColor = [NSUnarchiver unarchiveObjectWithData:defaults[MGSFragariaDefaultsTextColor]];
     self.backgroundColor = [NSUnarchiver unarchiveObjectWithData:defaults[MGSFragariaDefaultsBackgroundColor]];

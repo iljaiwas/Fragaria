@@ -32,7 +32,13 @@
     NSBundle *bundle;
     
     self = [super init];
+ 
+#ifdef COCOAPODS
+    bundle = resourcesBundle;
+#else
     bundle = [NSBundle bundleForClass:[MGSPrefsEditorPropertiesViewController class]];
+#endif
+
     [bundle loadNibNamed:@"MGSPrefsEditorProperties" owner:self topLevelObjects:nil];
 
     return self;
