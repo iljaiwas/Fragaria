@@ -454,8 +454,14 @@ NSString * const KMGSColourSchemeExt = @"plist";
     self.colourSchemes = [[NSMutableArray alloc] init];
 
     // Load schemes from this bundle
+#ifdef COCOAPODS
+    NSString *path = [resourcesBundle bundlePath];
+    path = [[path stringByAppendingPathComponent:@"Resources"] stringByAppendingPathComponent:@"Colour Schemes"];
+#else
     NSString *path = [[NSBundle bundleForClass:[self class]] bundlePath];
     path = [path stringByAppendingPathComponent:@"Resources"];
+#endif
+
     [self addColourSchemesFromPath:path bundleFlag:YES];
 
     // Load schemes from app bundle

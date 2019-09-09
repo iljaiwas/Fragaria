@@ -262,12 +262,20 @@ static id sharedInstance = nil;
 	NSMutableArray *syntaxDefinitionsArray = [NSMutableArray arrayWithCapacity:30];
 											  
 	// load syntax definitions from this bundle
-	NSString *path = [[self bundle] pathForResource:KMGSSyntaxDefinitions ofType:KMGSSyntaxDefinitionsExt];
-	NSAssert(path, @"framework syntax definitions not found");	
+#ifdef COCOAPODS
+    NSString *path = [resourcesBundle pathForResource:KMGSSyntaxDefinitions ofType:KMGSSyntaxDefinitionsExt];
+#else
+    NSString *path = [[self bundle] pathForResource:KMGSSyntaxDefinitions ofType:KMGSSyntaxDefinitionsExt];
+#endif
+	NSAssert(path, @"framework syntax definitions not found");
 	[self addSyntaxDefinitions:syntaxDefinitionsArray path:path];
 	
 	// load syntax definitions from app bundle
-	path = [[NSBundle mainBundle] pathForResource:KMGSSyntaxDefinitions ofType:KMGSSyntaxDefinitionsExt];
+#ifdef COCOAPODS
+    path = [resourcesBundle pathForResource:KMGSSyntaxDefinitions ofType:KMGSSyntaxDefinitionsExt];
+#else
+    path = [[NSBundle mainBundle] pathForResource:KMGSSyntaxDefinitions ofType:KMGSSyntaxDefinitionsExt];
+#endif
 	[self addSyntaxDefinitions:syntaxDefinitionsArray path:path];
 	
 	// load syntax definitions from application support
@@ -294,7 +302,11 @@ static id sharedInstance = nil;
 		NSString *fileName = [definition objectForKey:@"file"];
 		
 		// load dictionary from this bundle
-		NSDictionary *syntaxDictionary = [[NSDictionary alloc] initWithContentsOfFile:[[self bundle] pathForResource:fileName ofType:KMGSSyntaxDefinitionsExt inDirectory:KMGSSyntaxDefinitionsFolder]];
+#ifdef COCOAPODS
+        NSDictionary *syntaxDictionary = [[NSDictionary alloc] initWithContentsOfFile:[resourcesBundle pathForResource:fileName ofType:KMGSSyntaxDefinitionsExt inDirectory:KMGSSyntaxDefinitionsFolder]];
+#else
+        NSDictionary *syntaxDictionary = [[NSDictionary alloc] initWithContentsOfFile:[[self bundle] pathForResource:fileName ofType:KMGSSyntaxDefinitionsExt inDirectory:KMGSSyntaxDefinitionsFolder]];
+#endif
 		if (syntaxDictionary) return syntaxDictionary;
 		
 		// load dictionary from main bundle
