@@ -583,6 +583,10 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
     const NSRect *dirtyRects;
     NSRange recolourRange;
     NSInteger rectCount, i;
+	
+    if (self.window == nil) {
+        return;
+    }
     
     [self getRectsBeingDrawn:&dirtyRects count:&rectCount];
     
