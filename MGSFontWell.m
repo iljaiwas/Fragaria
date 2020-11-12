@@ -18,6 +18,7 @@ static NSNumberFormatter *formatter;
     BOOL wasActivatedOnce;
 }
 
+@synthesize  font = _font;
 
 #pragma mark - Initialization
 
